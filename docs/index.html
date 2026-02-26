@@ -153,7 +153,7 @@
           <div class="is-size-7 muted mt-1">† Correspondence: chang.xu@epfl.ch</div>
 
           <div class="paper-links mt-5">
-            <a class="button is-primary is-rounded" href="https://openreview.net/pdf?id=0WHpOekph0" target="_blank">
+            <a class="button is-primary is-rounded" href="https://openreview.net/forum?id=0WHpOekph0" target="_blank">
               <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper (PDF)</span>
             </a>
             <a class="button is-dark is-rounded" href="https://github.com/eceo-epfl/GeoFAR" target="_blank">
@@ -245,11 +245,11 @@
 
     <!-- Block 1: Method overview text -->
     <div class="columns is-centered">
-      <div class="column is-four-fifths">
+      <div class="column is-full">
         <div class="content-card">
           <div class="content has-text-justified">
             <p>
-              GeoFAR first applies a <strong>frequency-aware projector</strong> to produce frequency-aware features \(I_f\). In parallel, <strong>Geo-INR</strong> maps geographical coordinates \((\text{lat},\text{lon},h)\) to a learnable geography embedding \(G\). GeoFAR then performs pixel-wise feature modulation and refinement before feeding the representation into an SR backbone.
+              GeoFAR provides frequency-aware and geography-informed representations for climate SR, thereby reconstructing fine-grained climate information at high resolution. GeoFAR first employes frequency-aware convolutional kernels to produce frequency-aware representations (<strong>FAR</strong>). In parallel, <strong>Geo-INR</strong> maps geographical coordinates to a learnable geography (location+elevation) embedding. GeoFAR then performs pixel-wise feature modulation and refinement before feeding the representation into an SR backbone.
             </p>
           </div>
         </div>
@@ -262,9 +262,9 @@
         <div class="figure-box has-text-centered">
           <img src="static/images/pipeline.png"
                alt="GeoFAR pipeline"
-               style="width: min(60%, 1100px); border-radius: 10px; display: inline-block;">
+               style="width: min(68%, 1100px); border-radius: 10px; display: inline-block;">
           <div class="figure-caption">
-            Overview of the GeoFAR pipeline, including the frequency-aware projector (FAR) and geography-informed INR (Geo-INR).
+            Overview of the GeoFAR pipeline, including the frequency-aware representations (FAR) and geography-informed INR (Geo-INR).
           </div>
         </div>
       </div>
@@ -274,10 +274,10 @@
     <div class="columns mt-2">
       <div class="column">
         <div class="content-card">
-          <h3 class="title is-5">FAR: Frequency-aware Representation</h3>
+          <h3 class="title is-5 far-title">FAR: Frequency-aware Representation</h3>
           <div class="content has-text-justified">
             <p>
-              Uses DCT basis functions to parameterize frequency-aware convolution kernels (FCK), acting as a localized filter bank that separates low/high-frequency patterns into multiple channels and reduces low-frequency aggregation.
+              Uses DCT basis functions to parameterize frequency-aware convolution kernels (FCK), acting as a filter bank that separates frequency-aware patterns into multiple channels and mitigates low-frequency aggregation.
             </p>
           </div>
         </div>
@@ -285,7 +285,7 @@
 
       <div class="column">
         <div class="content-card">
-          <h3 class="title is-5">Geo-INR: Geography-informed INR</h3>
+          <h3 class="title is-5 inr-title">Geo-INR: Geography-informed INR</h3>
           <div class="content has-text-justified">
             <p>
               Combines band-limited spherical harmonics for location and terrain-differential encoding (elevation + gradients), then projects them with a SIREN-based MLP to produce geography-conditioned embeddings for SR.
@@ -303,7 +303,7 @@
       <div class="columns is-variable is-5">
         <div class="column">
           <div class="content-card">
-            <h3 class="title is-5">Across scales and datasets</h3>
+            <h3 class="title is-5">Across spatial resolutions</h3>
             <p class="muted">GeoFAR improves deterministic and generative baselines on global (ERA5), global-to-local (ERA5→PRISM), and local (CERRA) downscaling settings, with stronger gains in local terrain-complex settings.</p>
             <div class="figure-box mt-3">
               <img src="static/images/table1_results.png" alt="Table 1 results" style="width:100%; border-radius:10px;">
@@ -313,7 +313,7 @@
         </div>
         <div class="column">
           <div class="content-card">
-            <h3 class="title is-5">Variables and larger downscaling ratios</h3>
+            <h3 class="title is-5">Across downscaling ratios</h3>
             <p class="muted">GeoFAR remains effective on multi-variable CERRA downscaling and pressure-level variables (Z500, T850), and degrades gracefully for ×4 and ×8 upsampling on CERRA.</p>
             <div class="figure-box mt-3">
               <img src="static/images/table23_results.png" alt="Table 2 and Table 3 results" style="width:100%; border-radius:10px;">
