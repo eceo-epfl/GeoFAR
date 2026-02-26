@@ -1,489 +1,386 @@
-
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
-  <!-- Replace the content tag with appropriate information -->
-  <meta name="description" content="ConGeo: Robust Cross-view Geo-localization across Ground View Variations">
-  <meta property="og:title" content="ConGeo: Robust Cross-view Geo-localization across Ground View Variations"/>
-  <meta property="og:description" content="ConGeo: Robust Cross-view Geo-localization across Ground View Variations"/>
-  <meta property="og:url" content="https://chasel-tsui.github.io/ConGeo/"/>
-  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
-  <meta property="og:image" content="static/image/your_banner_image.png" />
-  <meta property="og:image:width" content="1200"/>
-  <meta property="og:image:height" content="630"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="GeoFAR: Geography-Informed Frequency-Aware Super-Resolution for Climate Data (ICLR 2026)." />
+  <meta property="og:title" content="GeoFAR | ICLR 2026" />
+  <meta property="og:description" content="Geography-Informed Frequency-Aware Super-Resolution for Climate Data" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="static/images/geofar_teaser.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="GeoFAR | ICLR 2026" />
+  <meta name="twitter:description" content="Geography-Informed Frequency-Aware Super-Resolution for Climate Data" />
+  <meta name="twitter:image" content="static/images/geofar_teaser.png" />
+  <meta name="keywords" content="climate downscaling, super-resolution, diffusion, geospatial AI, climate AI" />
 
+  <title>GeoFAR | ICLR 2026</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico" />
 
-  <meta name="twitter:title" content="ConGeo: Robust Cross-view Geo-localization across Ground View Variations">
-  <meta name="twitter:description" content="ConGeo: Robust Cross-view Geo-localization across Ground View Variations">
-  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
-  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <!-- Keywords for your paper to be indexed by-->
-  <meta name="keywords" content="remote sensing, geo-localization, contrastive learning">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,700|Noto+Sans:400,500,700|Castoro" rel="stylesheet">
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 
-  <title>ConGeo</title>
-  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-  rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-  <link rel="stylesheet" href="static/css/bulma.min.css">
-  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
-  <script defer src="static/js/fontawesome.all.min.js"></script>
-  <script src="static/js/bulma-carousel.min.js"></script>
-  <script src="static/js/bulma-slider.min.js"></script>
-  <script src="static/js/index.js"></script>
-  <script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'],['\\(','\\)']]} }); </script> <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+  <link rel="stylesheet" href="static/css/custom.css">
+
+  <style>
+    :root {
+      --brand: #1f6feb;
+      --brand-dark: #124ea6;
+      --bg-soft: #f7f9fc;
+      --border: #e8edf3;
+      --text-soft: #5b6573;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Noto Sans", sans-serif;
+      color: #1f2937;
+      background: white;
+    }
+    .publication-title {
+      font-family: "Google Sans", sans-serif;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .hero-gradient {
+      background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      border: 1px solid #dbe5f2;
+      border-radius: 999px;
+      padding: .35rem .75rem;
+      font-size: .9rem;
+      color: #334155;
+      background: #fff;
+      margin: .25rem;
+    }
+    .paper-links .button {
+      margin: .3rem;
+      border-radius: 999px;
+    }
+    .paper-links .button.is-primary {
+      background: var(--brand);
+    }
+    .paper-links .button.is-primary:hover { background: var(--brand-dark); }
+    .teaser-card, .content-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    }
+    .teaser-card { padding: 1rem; }
+    .content-card { padding: 1.25rem 1.25rem 1rem; }
+    .section-soft { background: var(--bg-soft); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .section-title {
+      font-family: "Google Sans", sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: .75rem;
+    }
+    .muted { color: var(--text-soft); }
+    .authors .author-block { white-space: nowrap; }
+    .authors .author-block a { color: #1f2937; }
+    .authors .author-block a:hover { color: var(--brand); text-decoration: underline; }
+    .figure-box {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: .75rem;
+      background: #fff;
+    }
+    .figure-caption {
+      font-size: .9rem;
+      color: var(--text-soft);
+      margin-top: .5rem;
+      line-height: 1.5;
+    }
+    .quick-grid .box {
+      height: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      box-shadow: none;
+      background: #fff;
+    }
+    .metric-chip {
+      display:inline-block; margin:.2rem .35rem .2rem 0; padding:.25rem .55rem;
+      border-radius:999px; border:1px solid #dbe5f2; background:#fbfdff; font-size:.82rem; color:#334155;
+    }
+    pre code {
+      display:block; overflow-x:auto; white-space:pre; border-radius:12px;
+      background:#0f172a; color:#e2e8f0; padding:1rem;
+      font-size:.85rem;
+    }
+    .footer { border-top: 1px solid var(--border); background: #fff; }
+    .nav-anchor { color: var(--brand); font-weight: 500; margin: 0 .6rem; }
+    @media (max-width: 768px) {
+      .publication-title { font-size: 2rem !important; }
+      .authors { font-size: 1rem !important; }
+    }
+  </style>
 </head>
 <body>
 
-
-  <section class="hero">
+  <section class="hero hero-gradient">
     <div class="hero-body">
       <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title"><b>ConGeo:</b> <br>
-                Robust Cross-view Geo-localization across Ground View Variations </h1>
-            <div class="is-size-5 publication-authors">
-              <!-- Paper authors -->
-              <span class="author-block">
-                <a href="https://limirs.github.io/" target="_blank">Li Mi</a><sup>*</sup>,</span>
-              <span class="author-block">
-              <a href="https://chasel-tsui.github.io/Homepage/" target="_blank">Chang Xu</a><sup>*</sup>,</span>
-              <span class="author-block">
-                <a href="https://javi-castillo.github.io/" target="_blank">Javiera Castillo-Navarro,</a>
-              </span>
-              <span class="author-block">
-                <a href="https://smontariol.github.io/" target="_blank">Syrielle Montariol,</a>
-              </span>
-            </span>
+        <div class="has-text-centered">
+          <div class="mb-4">
+            <span class="badge"><i class="fas fa-globe"></i> Climate AI</span>
+            <span class="badge"><i class="fas fa-mountain"></i> Climate Downscaling</span>
+            <span class="badge"><i class="fas fa-wave-square"></i> Geography-aware Learning</span>
+          </div>
+
+          <h1 class="title is-1 publication-title">
+            <span style="font-weight:700;">GeoFAR</span>: Geography-Informed Frequency-Aware Super-Resolution for Climate Data
+          </h1>
+
+          <div class="is-size-5 authors mt-4">
+            <span class="author-block"><a href="https://chasel-tsui.github.io/Homepage/">Chang Xu</a><sup>†</sup>,</span>
+            <span class="author-block"><a href="https://people.epfl.ch/gencer.sumbul?lang=en">Gencer Sumbul</a>,</span>
+            <span class="author-block"><a href="https://limirs.github.io/">Li Mi</a>,</span>
+            <span class="author-block"><a href="https://zbirobin.github.io/">Robin Zbinden</a>,</span>
+            <span class="author-block"><a href="https://people.epfl.ch/devis.tuia" target="_blank">Devis Tuia</a></span>
+          </div>
+          <div class="is-size-5 mt-2 muted">EPFL, Switzerland · ETH Zurich, Switzerland</div>
+          <div class="is-size-5 mt-2"><strong>ICLR 2026</strong></div>
+          <div class="is-size-7 muted mt-1">† Correspondence: chang.xu@epfl.ch</div>
+
+          <div class="paper-links mt-5">
+            <a class="button is-primary is-rounded" href="https://openreview.net/pdf?id=0WHpOekph0" target="_blank">
+              <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper (PDF)</span>
+            </a>
+            <a class="button is-dark is-rounded" href="https://github.com/eceo-epfl/GeoFAR" target="_blank">
+              <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+            </a>
+            <a class="button is-link is-light is-rounded" href="https://eceo-epfl.github.io/GeoFAR/" target="_blank">
+              <span class="icon"><i class="fas fa-external-link-alt"></i></span><span>Project Page</span>
+            </a>
+            <a class="button is-light is-rounded" href="#bibtex">
+              <span class="icon"><i class="fas fa-quote-right"></i></span><span>BibTeX</span>
+            </a>
+          </div>
+
+          <div class="mt-4">
+            <a class="nav-anchor" href="#overview">Overview</a>
+            <a class="nav-anchor" href="#method">Method</a>
+            <a class="nav-anchor" href="#results">Results</a>
+            <a class="nav-anchor" href="#analysis">Analysis</a>
+            <a class="nav-anchor" href="#bibtex">BibTeX</a>
+          </div>
+        </div>
+
+        <div class="mt-6 teaser-card">
+          <div class="columns is-vcentered">
+            <div class="column is-7">
+              <h2 class="title is-4 section-title mb-3">What GeoFAR addresses</h2>
+              <p class="is-size-6" style="text-align: justify;">
+                Climate super-resolution is often biased towards low frequency structures and struggle to reconstruct geography-dependent high-frequency details (e.g., mountains, coastlines, polar regions). GeoFAR introduces <strong>frequency-aware representations (FAR)</strong> and <strong>geography-aware implicit neural representations (Geo-INR)</strong> to improve fidelity across deterministic and generative SR backbones.
+              </p>
+              <div class="mt-3">
+                <span class="metric-chip">Global + local downscaling</span>
+                <span class="metric-chip">Surface + pressure variables</span>
+                <span class="metric-chip">Deterministic + generative baselines</span>
+                <span class="metric-chip">High-frequency fidelity</span>
+              </div>
             </div>
-
-                  <div class="is-size-5 publication-authors">
-                    <span class="author-block">
-                        <a href="https://scholar.google.com/citations?user=-aVL-UQAAAAJ&hl=zh-CN" target="_blank">Wen Yang</a>,</span>
-                    <span class="author-block">
-                      <a href="https://atcbosselut.github.io/" target="_blank">Antoine Bosselut</a> and </span>
-                      <span class="author-block">
-                        <a href="https://people.epfl.ch/devis.tuia" target="_blank">Devis Tuia</a></span>
-                  </div>
-
-                  <div class="is-size-5 publication-authors">
-                    <span class="author-block">EPFL, </span>
-                    <span class="author-block">Wuhan University</span>
-                  </div>
-
-                  <div class="is-size-5 publication-authors">
-                    <span class="author-block"><b>ECCV 2024</b></span>
-                    <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
-                  </div>
-
-                  <div class="is-size-5 publication-authors">
-                    <span class="author-block">
-                      <p><br></p>
-                      <!--<a href="http://www.epfl.ch/labs/eceo/"><img src="static/images/Fig_ECEO.png" width="180px" margin-left="20px" margin-right="20px" alt="ECEO Logo"/></a></span>-->
-                      <a href="http://epfl.ch"><img src="static/images/Fig_EPFL.png" width="180px"  margin-left="20px"  margin-right="20px" alt="EPFL Logo"/></a></span>
-                      <a href="https://www.whu.edu.cn/"><img src="static/images/WHU2.jpg" width="180px"  margin-left="20px"  margin-right="20px" alt="WHU Logo"/></a></span>
-                      <!--<a href="https://nlp.epfl.ch/"><img src="static/images/Fig_NLP.png" width="100px"  margin-left="20px" margin-right="20px" alt="NLP Logo"/></a></span> -->
-                  </div>
-
-                  <!---TODO ECEO LOGO, and change logo from red/white invert, put pipeline image-->
-                  <div class="column has-text-centered">
-                    <div class="publication-links">
-                         <!-- Arxiv PDF link -->
-                      <span class="link-block">
-                        <a href="https://arxiv.org/abs/2403.13965" target="_blank"
-                        class="external-link button is-normal is-rounded is-dark">
-                        <span class="icon">
-                          <i class="fas fa-file-pdf"></i>
-                        </span>
-                        <span>Pre-Print</span>
-                      </a>
-                    </span>
-
-                    <!-- Supplementary PDF link -->
-                    <!--<span class="link-block">
-                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
-                      class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
-                      </span>
-                      <span>Supplementary</span>
-                    </a>
-                  </span>-->
-
-                  <!-- Github link -->
-                  <span class="link-block">
-                    <a href="https://github.com/eceo-epfl/ConGeo" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
-                    <span>Code</span>
-                  </a>
-                </span>
-
-                <div class="container is-max-desktop">
-                <div class="columns is-centered">
-                <div class="column is-four-fifths">
-                <div class="content has-text-justified">
-                  <p><br></p>
-                <p>
-                <div align="center">
-                <b style="font-size:21px; ">ConGeo enhances base models’ robustness to ground view variations by aligning the representations of the same location.</b> 
-                <p><br></p>
-                </div>
-                <div align="center">
-                <img src="static/images/Fig_Summary.png" alt="An Overview of ConGeo" width="80%"/>
-                </div> 
-                  As <b> a generic learning objective </b> for cross-view geo-localization, when integrated into state-of-the-art pipelines, ConGeo significantly boosts the performance of <b> three base models </b> on <b> four geo-localization benchmarks</b>  for diverse ground view variations.</p>
-                <!-- ArXiv abstract Link -->
-                <!--<span class="link-block">
-                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-              </span>-->
+            <div class="column is-5">
+              <div class="figure-box">
+              <img src="static/images/overview.png" style="width:100%; border-radius:10px;"> 
             </div>
           </div>
         </div>
       </div>
     </div>
+  </section>
+
+  <section class="section" id="overview">
+<div class="container is-max-desktop">
+  <div class="columns is-centered">
+    <div class="column is-four-fifths">
+      <h2 class="title is-3 section-title has-text-centered">Motivation</h2>
+
+    <div class="content-card">
+      <div class="content">
+        <ul class="is-size-6">
+          <li><strong>Climate data is dominated by low-frequency components</strong>, making high-frequency signals relatively underrepresented during training.</li>
+          <li><strong>This frequency distribution is geography-dependent</strong>: plains and oceans are mostly smooth, while mountains, coastlines, and polar regions contain richer high-frequency variability.</li>
+        </ul>
+
+        <p class="is-size-6">
+          Deep neural networks also exhibit frequency bias and tend to fit smooth, majority patterns first, which further amplifies this issue in climate super-resolution.
+        </p>
+
+        <ul class="is-size-6">
+          <li>As a result, models often <strong>under-reconstruct geography-dependent high-frequency details</strong> in terrain-complex regions, leading to inaccurate regional estimates.</li>
+          <li>This effect appears as concentrated high-frequency deficits in the Laplace-filtered prediction bias, especially over <strong>polar regions, coastlines, and mountains</strong>.</li>
+        </ul>
+      </div>
+    </div>
+
+      <!-- Centered figure under the text -->
+      <div class="figure-box mt-4 has-text-centered">
+        <img src="static/images/motivation.png"
+             alt="Motivation figure for GeoFAR"
+             style="width: 85%; max-width: 900px; border-radius: 10px; display: inline-block;">
+        <div class="figure-caption">
+          Motivation of GeoFAR: mitigating frequency bias and geography-dependent high-frequency loss
+        </div>
+      </div>
+
+    </div>
   </div>
+</div>
 </section>
 
-
-<!-- Paper abstract -->
-<section class="section hero is-light">
+<section class="section section-soft" id="method">
   <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title has-text-centered">Method</h2>
+
+    <!-- Block 1: Method overview text -->
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3 has-text-centered">Motivation</h2>
-        <div class="content has-text-justified">
-        <p>Cross-view geo-localization aims at localizing a ground-level query image by matching it to its corresponding geo-referenced aerial view. In real-world scenarios, the task requires accommodating diverse ground images captured by users with varying orientations and reduced field of views (FoVs), including the following settings: 
-        </p>
-        <ul>
-          <li><b>North-aligned:</b> Ground-view and aerial-view images are aligned to the North.</li>
-          <li><b>Unknown Orientation:</b> Ground-view images are of arbitrary orientations (FoV=360°).</li>
-          <li><b>Limited Field of View:</b> Ground-view images are of arbitrary orientations and limited fielf of views (e.g., FoV=70°, 90°, or 180°).</li>
-        </ul>
-          <div align="center">
-            <img src="static/images/Fig_tasks.png" alt="An Overview of ConGeo" width="80%"/>
+        <div class="content-card">
+          <div class="content has-text-justified">
+            <p>
+              GeoFAR first applies a <strong>frequency-aware projector</strong> to produce frequency-aware features \(I_f\). In parallel, <strong>Geo-INR</strong> maps geographical coordinates \((\text{lat},\text{lon},h)\) to a learnable geography embedding \(G\). GeoFAR then performs pixel-wise feature modulation and refinement before feeding the representation into an SR backbone.
+            </p>
           </div>
-          <p><br></p>
-          <p>
-            However, existing learning pipelines are orientation-specific or FoV-specific, demanding separate model training for different ground view variations. To tackle this challenge, we propose <b>ConGeo</b>, a single- and cross-modal <b>Con</b>trastive method for <b>Geo</b>-localization that improves the base model's <b>robustness across various ground view variations</b>.
-          </p>
-       </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Centered pipeline figure (between block 1 and blocks 3/4) -->
+    <div class="columns is-centered mt-4">
+      <div class="column is-full">
+        <div class="figure-box has-text-centered">
+          <img src="static/images/pipeline.png"
+               alt="GeoFAR pipeline"
+               style="width: min(60%, 1100px); border-radius: 10px; display: inline-block;">
+          <div class="figure-caption">
+            Overview of the GeoFAR pipeline, including the frequency-aware projector (FAR) and geography-informed INR (Geo-INR).
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blocks 3 & 4 -->
+    <div class="columns mt-2">
+      <div class="column">
+        <div class="content-card">
+          <h3 class="title is-5">FAR: Frequency-aware Representation</h3>
+          <div class="content has-text-justified">
+            <p>
+              Uses DCT basis functions to parameterize frequency-aware convolution kernels (FCK), acting as a localized filter bank that separates low/high-frequency patterns into multiple channels and reduces low-frequency aggregation.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="content-card">
+          <h3 class="title is-5">Geo-INR: Geography-informed INR</h3>
+          <div class="content has-text-justified">
+            <p>
+              Combines band-limited spherical harmonics for location and terrain-differential encoding (elevation + gradients), then projects them with a SIREN-based MLP to produce geography-conditioned embeddings for SR.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- End paper abstract -->
-
-
-
-<!-- Method -->
-<section class="section hero">
+  <section class="section" id="results">
     <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Method</h2>
-          <div class="content has-text-justified">
-            <p>
-            <b>ConGeo</b> enhances robustness and consistency in feature representations to improve a model's invariance to orientation and its resilience to FoV variations, by enforcing proximity between ground view variations of the same location. 
-            </p>
-
-            <figure class="image mod-figure">
-              <img src="static/images/Fig_Pipeline1.png" alt="Modalities overview" width="120%">
-            </figure>
-            <p style="font-size:13px; ">
-            ConGeo's learning pipeline. For feature representation in the left and right boxes, the North-aligned ground image, the transformed ground image, and the aerial view are sent to their respective encoders. Then in the feature space, the single- and cross-modal contrastive learning losses are applied to enforce the proximity of the paired images. 
-            </p>
-
-            <p>
-              The proposed training objectives contains cross-modal and single-modal contrastive learning with four losses:
-            </p>
-            <div align="center">
-            <img src="static/images/Fig_Equations.png" alt="An Overview of ConGeo" width="80%"/>
+      <h2 class="title is-3 section-title has-text-centered">Key Results</h2>
+      <div class="columns is-variable is-5">
+        <div class="column">
+          <div class="content-card">
+            <h3 class="title is-5">Across scales and datasets</h3>
+            <p class="muted">GeoFAR improves deterministic and generative baselines on global (ERA5), global-to-local (ERA5→PRISM), and local (CERRA) downscaling settings, with stronger gains in local terrain-complex settings.</p>
+            <div class="figure-box mt-3">
+              <img src="static/images/table1_results.png" alt="Table 1 results" style="width:100%; border-radius:10px;">
+              <div class="figure-caption">Replace with a rendered crop of Table 1 (or a cleaned plot/table summary).</div>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="content-card">
+            <h3 class="title is-5">Variables and larger downscaling ratios</h3>
+            <p class="muted">GeoFAR remains effective on multi-variable CERRA downscaling and pressure-level variables (Z500, T850), and degrades gracefully for ×4 and ×8 upsampling on CERRA.</p>
+            <div class="figure-box mt-3">
+              <img src="static/images/table23_results.png" alt="Table 2 and Table 3 results" style="width:100%; border-radius:10px;">
+              <div class="figure-caption">Replace with a compact composite of Tables 2–3 (or highlight chart with RMSE/LFD gains).</div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- End Method -->
 
-<!-- Image carousel -->
-<section class="section hero is-small is-light">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered has-text-centered">
-          <h2 class="title">Results</h2>
-          <p><br></p>
-        </div>
-
-        <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <div class="content has-text-justified">
-          <p>
-            Experiments are performed on four cross-view geolocalization benchmarks to investigate <b>ConGeo</b>'s <b>robustness</b>, <b>adaptability</b>, and <b>generalization ability</b>. Analysis on orientation invariance and activation map further comfirms <b>ConGeo</b>'s robustness.
-        </p>
-        </div>
-        </div>
-        </div>
-
-
-        <div class="item">
-        <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-        <div class="content has-text-justified">
-        <h4 class="subtitle">
-            <b>Robustness across different settings</b>
-          </h4>
-        <p>
-          Using a single model, ConGeo outperforms SOTA FoV-specific or orientation-specific models under ground-view variations and achieves leading performance under North alignment. 
-        </p>
-        </div>
-        </div>
-        </div>
-
-        <p><br></p>
-
-        <div align="center">
-          <img src="static/images/Fig_RFoVs.png" alt="MY ALT TEXT" width="30%"/>
-        </div>
-        <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-        <div class="content has-text-justified">
-        <div align="center">
-        <p style="font-size:13px; ">
-            Comparison with SOTA FoV-specific methods on different settings on the CVUSA dataset.
-        </p>
-        </div>
-        </div>
-        </div>
-        </div>
-
-        <p><br></p>
-        <div align="center">
-          <img src="static/images/retrieval_results.gif" alt="MY ALT TEXT" width="70%"/>
-        </div>
-        <p><br></p>
-        </div>
-
-        <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-        <div class="content has-text-justified">
-        <div align="center">
-        <p style="font-size:13px; ">
-            Retrieval results of the baseline model and of ConGeo undering the North-aligned setting and limited FoV setting.
-        </p>
-        </div>
-        </div>
-        </div>
-        </div>
-
-        <p><br></p>
-
-
-
-
-
-        <div class="item">
-        <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-        <div class="content has-text-justified">
-        <h4 class="subtitle">
-            <b>Superiority over data augmentations</b>
-          </h4>
-        <p>
-            ConGeo shows effectiveness compared with different data augmentation methods.
-        </p>
-        </div>
-        </div>
-        </div>
-
-        <p><br></p>
-        <div align="center">
-          <img src="static/images/aug_hist.png" alt="MY ALT TEXT" width="80%"/>
-        </div>
-
-        <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-        <div class="content has-text-justified">
-        <p style="font-size:13px; ">
-            Comparison on unknown orientation setting and limited FoV setting between ConGeo and different data augmentation methods on the CVUSA dataset. “Shift” denotes using shifted query images and “FoV” denotes using query images of limited FoVs, “Rotate” randomly rotating aerial images as data augmentation.
-        </p>
-        </div>
-        </div>
-        </div>
-
-        <p><br></p>
-
-      
-
-        <div class="item">
-        <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-        <div class="content has-text-justified">
-        <h4 class="subtitle">
-            <b>Generalization ability on unseen ground view variations</b>
-          </h4>
-        <p>
-            <b>ConGeo</b> generalizes better on unseen ground view variations than baseline model and baseline model with data augmentation.
-        </p>
-        </div>
-        </div>
-        </div>
-
-        <p><br></p>
-        <div align="center">
-          <img src="static/images/unseen_hist.png" alt="MY ALT TEXT" width="80%"/>
-        </div>
-
-        <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-        <div class="content has-text-justified">
-        <p style="font-size:13px; ">
-            Comparison on unseen ground view variations (e.g., Random FoVs, Random Zooming, Gaussian Noise, and Motion Blur) between ConGeo and baselines on the CVUSA dataset. “DA” means data augmentation.
-        </p>
-        </div>
-        </div>
-        </div>
-
-
-        <p><br></p>
-
-
-        <div class="item">
-        <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-        <div class="content has-text-justified">
-        <h4 class="subtitle">
-            <b>Analysis: How does ConGeo achieve robustness?</b>
-          </h4>
-        <p>
-            Orientation invariance analysis that showcases models’ vulnerabilities to orientation shifts and activation map visualization that investigates the models’ focus. 
-        </p>
-        </div>
-        </div>
-        </div>
-
-        <p><br></p>
-        <div align="center">
-          <img src="static/images/Fig_ROrientation.png" alt="MY ALT TEXT" width="45%"/>
-        </div>
-
-        <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-        <div class="content has-text-justified">
-        <p style="font-size:13px; ">
-            ConGeo shows better orientation invariance. We cyclically shift the ground view with an angle (x-axis) as the model’s input to test its retrieval performance. Note that “N-A” denotes the North-aligned setting and “DA” means data augmentation.
-        </p>
-        </div>
-        </div>
-        </div>
-
-          <p><br></p>
-          <!-- Your image here -->
-          <div align="center">
-          <img src="static/images/attention.gif" alt="MY ALT TEXT" width="70%"/>
-          </div>
-
-        <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-        <div class="content has-text-justified">
-        <div align="center">
-        <p style="font-size:13px; ">
-            ConGeo’s activation areas are more consistent across ground view shifts.
-        </p>
-        </div>
-        </div>
-        </div>
-        </div>
-
-        <p><br></p>
-        </div> 
-
-        <p><br></p>
-
-    </div>
-  </div>
-  </div>
-  </section>
-  <!-- End image carousel -->
-
-<!-- Paper poster 
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title">Poster</h2>
-
-      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
-          </iframe>
-        
+      <div class="content-card mt-4">
+        <h3 class="title is-5">Main takeaways</h3>
+        <ul>
+          <li>Mitigates geography-dependent high-frequency loss (mountains/coastlines/polar regions).</li>
+          <li>Works as a plug-in to both deterministic and generative SR backbones.</li>
+          <li>Consistently improves spatial-domain metrics (RMSE/MB) and frequency-aware metrics (LFD).</li>
+        </ul>
       </div>
     </div>
   </section>
-End paper poster -->
 
-
-<!--BibTex citation -->
-  <section class="section" id="BibTeX">
-    <div class="container is-max-desktop content">
-      <h2 class="title">BibTeX</h2>
-      <pre><code>@article{mi2024congeo,
-  title={ConGeo: Robust Cross-view Geo-localization across Ground View Variations},
-  author={Mi, Li and Xu, Chang and Castillo-Navarro, Javiera and Montariol, Syrielle and Yang, Wen and Bosselut, Antoine and Tuia, Devis},
-  journal={arXiv preprint arXiv:2403.13965},
-  year={2024}
-}</code></pre>
+  <section class="section section-soft" id="analysis">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 section-title has-text-centered">Analysis & Visualizations</h2>
+      <div class="columns is-variable is-5">
+        <div class="column">
+          <div class="figure-box">
+            <img src="static/images/fig3_analysis.png" alt="Frequency and elevation-aware analysis" style="width:100%; border-radius:10px;">
+            <div class="figure-caption">Figure 3: Frequency/elevation-aware analyses. Use a clean crop that shows (a–d) with readable labels.</div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="figure-box">
+            <img src="static/images/fig4_examples.png" alt="Super-resolved examples" style="width:100%; border-radius:10px;">
+            <div class="figure-caption">Figure 4: Examples on CERRA and ERA5 showing reduced oversmoothing and bias.</div>
+          </div>
+          <div class="figure-box mt-4">
+            <img src="static/images/fig5_similarity.png" alt="GeoFAR representation similarity" style="width:100%; border-radius:10px;">
+            <div class="figure-caption">Figure 5: GeoFAR representation similarities (e.g., Zermatt vs Napoli).</div>
+          </div>
+        </div>
+      </div>
     </div>
-</section>
-<!--End BibTex citation -->
+  </section>
 
+  <section class="section" id="bibtex">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 section-title has-text-centered">BibTeX</h2>
+      <div class="content-card">
+<pre><code>@inproceedings{xu2026geofar,
+  title={GeoFAR: Geography-Informed Frequency-Aware Super-Resolution for Climate Data},
+  author={Xu, Chang and Sumbul, Gencer and Mi, Li and Zbinden, Robin and Tuia, Devis},
+  booktitle={International Conference on Learning Representations (ICLR)},
+  year={2026}
+}</code></pre>
+      </div>
+    </div>
+  </section>
 
   <footer class="footer">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-
-          <p>
-            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
-            You are free to borrow the template of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-
-        </div>
+    <div class="container is-max-desktop">
+      <div class="content has-text-centered is-size-6 muted">
+        <p>
+          Adapted from your previous project-page template and reorganized for GeoFAR.
+          Replace image placeholders under <code>static/images/</code> and the paper PDF path under <code>static/pdfs/</code> before deployment.
+        </p>
       </div>
     </div>
-  </div>
-</footer>
-
-<!-- Statcounter tracking code -->
-  
-<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
-
-    <!-- End of Statcounter Code -->
-
-  </body>
-  </html>
+  </footer>
+</body>
+</html>
