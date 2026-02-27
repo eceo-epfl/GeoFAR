@@ -299,36 +299,38 @@
 
   <section class="section" id="results">
     <div class="container is-max-desktop">
-      <h2 class="title is-3 section-title has-text-centered">Key Results</h2>
+      <h2 class="title is-3 section-title has-text-centered">Super-resolution Results</h2>
       <div class="columns is-variable is-5">
         <div class="column">
           <div class="content-card">
             <h3 class="title is-5">Across spatial resolutions</h3>
-            <p class="muted">GeoFAR improves deterministic and generative baselines on global (ERA5), global-to-local (ERA5→PRISM), and local (CERRA) downscaling settings, with stronger gains in local terrain-complex settings.</p>
-            <div class="figure-box mt-3">
-              <img src="static/images/table1_results.png" alt="Table 1 results" style="width:100%; border-radius:10px;">
-              <div class="figure-caption">Replace with a rendered crop of Table 1 (or a cleaned plot/table summary).</div>
+            <p class="muted">GeoFAR significantly improves baselines on <strong>global</strong> (ERA5: 2.625° → 5.8125°), <strong>global-to-local</strong> (ERA5: 2.8125°→PRISM: 0.75°), and <strong>local</strong> (CERRA: 22km → 11km) downscaling of 2m temperature.</p>
+            <div class="figure-box mt-3 has-text-centered">
+              <img src="static/images/comparison_resolutions.png" alt="Table 1 results" style="width:88%; border-radius:10px;">
+              <div class="figure-caption">Comparison of GeoFAR vs. ViT across spatial resolutions.</div>
             </div>
           </div>
         </div>
         <div class="column">
           <div class="content-card">
             <h3 class="title is-5">Across downscaling ratios</h3>
-            <p class="muted">GeoFAR remains effective on multi-variable CERRA downscaling and pressure-level variables (Z500, T850), and degrades gracefully for ×4 and ×8 upsampling on CERRA.</p>
-            <div class="figure-box mt-3">
-              <img src="static/images/table23_results.png" alt="Table 2 and Table 3 results" style="width:100%; border-radius:10px;">
-              <div class="figure-caption">Replace with a compact composite of Tables 2–3 (or highlight chart with RMSE/LFD gains).</div>
+            <p class="muted">GeoFAR is robust to varying downscaling ratios (×2, ×4, ×8) and maintains <strong>very low RMSE (under 0.4 unit) for as large as 8x downscaling </strong> on the 2m temperature (K) variable from CERRA.</p>
+            <div class="figure-box mt-3 has-text-centered">
+              <img src="static/images/comparison_ratios.png" alt="Table 2 and Table 3 results" style="width:88%; border-radius:10px;">
+              <div class="figure-caption">Comparison of GeoFAR vs. UNet across SR ratios.</div>
             </div>
           </div>
         </div>
       </div>
 
       <div class="content-card mt-4">
-        <h3 class="title is-5">Main takeaways</h3>
+        <h3 class="title is-5">Across different atmospheric variables</h3>
         <ul>
-          <li>Mitigates geography-dependent high-frequency loss (mountains/coastlines/polar regions).</li>
-          <li>Works as a plug-in to both deterministic and generative SR backbones.</li>
-          <li>Consistently improves spatial-domain metrics (RMSE/MB) and frequency-aware metrics (LFD).</li>
+            <p class="muted">GeoFAR remains effective on multi-variable CERRA downscaling (T2m, 10u, 10v, Rh2m, Sp) and ERA5 pressure-level variables (Z500, T850). In particular, the advantage of GeoFAR is particularly pronounced in reducing the bias of surface pressure which is strongly modulated by the topography information.</p>
+                <div class="figure-box mt-3 has-text-centered">
+                <img src="static/images/comparison_variables.png" alt="Table 2 and Table 3 results" style="width:88%; border-radius:10px; display: inline-block;">
+                <div class="figure-caption">Comparison of GeoFAR vs. ViT across atmospheric variables on CERRA 2x.</div>
+            </div>
         </ul>
       </div>
     </div>
@@ -336,27 +338,136 @@
 
   <section class="section section-soft" id="analysis">
     <div class="container is-max-desktop">
-      <h2 class="title is-3 section-title has-text-centered">Analysis & Visualizations</h2>
-      <div class="columns is-variable is-5">
-        <div class="column">
-          <div class="figure-box">
-            <img src="static/images/fig3_analysis.png" alt="Frequency and elevation-aware analysis" style="width:100%; border-radius:10px;">
-            <div class="figure-caption">Figure 3: Frequency/elevation-aware analyses. Use a clean crop that shows (a–d) with readable labels.</div>
+      <h2 class="title is-3 section-title has-text-centered">Visualizations</h2>
+
+      <!-- Block 1: ERA5 SR Visualization -->
+      <div class="mb-4">
+        <h3 class="title is-4 section-title">ERA5 Super-Resolution</h3>
+        <div class="columns is-variable is-2">
+          <div class="column">
+        <div class="figure-box">
+          <div class="image-comparison" style="position: relative; width: 100%; overflow: hidden; border-radius: 10px;">
+            <img src="static/images/era5_4_in.png" alt="ERA5 Input 1" style="width: 100%; display: block;">
+            <img src="static/images/era5_4_pred.png" alt="ERA5 SR 1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: ew-resize;" class="comparison-img">
+            <div class="comparison-slider" style="position: absolute; top: 0; left: 50%; width: 2px; height: 100%; background: #1f6feb; cursor: ew-resize;"></div>
+          </div>
+          <div class="figure-caption">ERA5 Global Downscaling (Input vs SR)</div>
+        </div>
+          </div>
+          <div class="column">
+        <div class="figure-box">
+          <div class="image-comparison" style="position: relative; width: 100%; overflow: hidden; border-radius: 10px;">
+            <img src="static/images/era5_1324_in.png" alt="ERA5 Input 2" style="width: 100%; display: block;">
+            <img src="static/images/era5_1324_pred.png" alt="ERA5 SR 2" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: ew-resize;" class="comparison-img">
+            <div class="comparison-slider" style="position: absolute; top: 0; left: 50%; width: 2px; height: 100%; background: #1f6feb; cursor: ew-resize;"></div>
+          </div>
+          <div class="figure-caption">ERA5 Regional View (Input vs SR)</div>
+        </div>
           </div>
         </div>
-        <div class="column">
-          <div class="figure-box">
-            <img src="static/images/fig4_examples.png" alt="Super-resolved examples" style="width:100%; border-radius:10px;">
-            <div class="figure-caption">Figure 4: Examples on CERRA and ERA5 showing reduced oversmoothing and bias.</div>
+      </div>
+
+      <!-- Block 2: CERRA SR Visualization (Different Ratios) -->
+      <div class="mb-4">
+        <h3 class="title is-4 section-title">CERRA Super-Resolution </h3>
+        <div class="columns is-variable is-2">
+          <div class="column">
+            <div class="figure-box">
+              <div class="image-comparison" style="position: relative; width: 100%; overflow: hidden; border-radius: 10px;">
+                <img src="static/images/cerra4x_0_in.png" alt="CERRA Input 2x" style="width: 100%; display: block;">
+                <img src="static/images/cerra4x_0_pred.png" alt="CERRA SR 2x" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: ew-resize;" class="comparison-img">
+                <div class="comparison-slider" style="position: absolute; top: 0; left: 50%; width: 2px; height: 100%; background: #1f6feb; cursor: ew-resize;"></div>
+              </div>
+              <div class="figure-caption">CERRA 2× Downscaling (Input vs SR)</div>
+            </div>
           </div>
-          <div class="figure-box mt-4">
-            <img src="static/images/fig5_similarity.png" alt="GeoFAR representation similarity" style="width:100%; border-radius:10px;">
-            <div class="figure-caption">Figure 5: GeoFAR representation similarities (e.g., Zermatt vs Napoli).</div>
+          <div class="column">
+            <div class="figure-box">
+              <div class="image-comparison" style="position: relative; width: 100%; overflow: hidden; border-radius: 10px;">
+                <img src="static/images/cerra8x_0_in.png" alt="CERRA Input 4x" style="width: 100%; display: block;">
+                <img src="static/images/cerra8x_0_pred.png" alt="CERRA SR 4x" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: ew-resize;" class="comparison-img">
+                <div class="comparison-slider" style="position: absolute; top: 0; left: 50%; width: 2px; height: 100%; background: #1f6feb; cursor: ew-resize;"></div>
+              </div>
+              <div class="figure-caption">CERRA 4× Downscaling (Input vs SR)</div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="figure-box">
+              <div class="image-comparison" style="position: relative; width: 100%; overflow: hidden; border-radius: 10px;">
+                <img src="static/images/cerra8x_0_in.png" alt="CERRA Input 8x" style="width: 100%; display: block;">
+                <img src="static/images/cerra8x_0_pred.png" alt="CERRA SR 8x" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: ew-resize;" class="comparison-img">
+                <div class="comparison-slider" style="position: absolute; top: 0; left: 50%; width: 2px; height: 100%; background: #1f6feb; cursor: ew-resize;"></div>
+              </div>
+              <div class="figure-caption">CERRA 8× Downscaling (Input vs SR)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Block 3: CERRA Multi-Variable Visualization -->
+      <div class="mb-4">
+        <h3 class="title is-4 section-title">CERRA Multi-Variable Super-Resolution</h3>
+        <div class="columns is-variable is-2">
+          <div class="column">
+            <div class="figure-box">
+              <div class="image-comparison" style="position: relative; width: 100%; overflow: hidden; border-radius: 10px;">
+                <img src="static/images/0_10m_u_component_of_wind-in.png" alt="CERRA 10u Input" style="width: 100%; display: block;">
+                <img src="static/images/0_10m_u_component_of_wind-pred.png" alt="CERRA 10u SR" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: ew-resize;" class="comparison-img">
+                <div class="comparison-slider" style="position: absolute; top: 0; left: 50%; width: 2px; height: 100%; background: #1f6feb; cursor: ew-resize;"></div>
+              </div>
+              <div class="figure-caption">10m U-Wind</div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="figure-box">
+              <div class="image-comparison" style="position: relative; width: 100%; overflow: hidden; border-radius: 10px;">
+                <img src="static/images/0_2m_relative_humidity-in.png" alt="CERRA Rh2m Input" style="width: 100%; display: block;">
+                <img src="static/images/0_2m_relative_humidity-pred.png" alt="CERRA Rh2m SR" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: ew-resize;" class="comparison-img">
+                <div class="comparison-slider" style="position: absolute; top: 0; left: 50%; width: 2px; height: 100%; background: #1f6feb; cursor: ew-resize;"></div>
+              </div>
+              <div class="figure-caption">2m Relative Humidity</div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="figure-box">
+              <div class="image-comparison" style="position: relative; width: 100%; overflow: hidden; border-radius: 10px;">
+                <img src="static/images/0_surface_pressure-in.png" alt="CERRA Sp Input" style="width: 100%; display: block;">
+                <img src="static/images/0_surface_pressure-pred.png" alt="CERRA Sp SR" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: ew-resize;" class="comparison-img">
+                <div class="comparison-slider" style="position: absolute; top: 0; left: 50%; width: 2px; height: 100%; background: #1f6feb; cursor: ew-resize;"></div>
+              </div>
+              <div class="figure-caption">Surface Pressure</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <script>
+    document.querySelectorAll('.image-comparison').forEach(container => {
+      const slider = container.querySelector('.comparison-slider');
+      const srImage = container.querySelector('.comparison-img');
+      
+      const updateSlider = (e) => {
+        const rect = container.getBoundingClientRect();
+        let x = e.clientX - rect.left;
+        if (e.touches) x = e.touches[0].clientX - rect.left;
+        x = Math.max(0, Math.min(x, rect.width));
+        
+        slider.style.left = x + 'px';
+        srImage.style.clipPath = `inset(0 ${100 - (x / rect.width) * 100}% 0 0)`;
+      };
+      
+      container.addEventListener('mousemove', updateSlider);
+      container.addEventListener('touchmove', updateSlider);
+      container.addEventListener('mousedown', () => {
+        container.addEventListener('mousemove', updateSlider);
+      });
+      container.addEventListener('mouseup', () => {
+        container.removeEventListener('mousemove', updateSlider);
+      });
+    });
+  </script>
 
   <section class="section" id="bibtex">
     <div class="container is-max-desktop">
@@ -376,8 +487,7 @@
     <div class="container is-max-desktop">
       <div class="content has-text-centered is-size-6 muted">
         <p>
-          Adapted from your previous project-page template and reorganized for GeoFAR.
-          Replace image placeholders under <code>static/images/</code> and the paper PDF path under <code>static/pdfs/</code> before deployment.
+          This website is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
         </p>
       </div>
     </div>
