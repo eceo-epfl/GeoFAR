@@ -4,3 +4,94 @@
 .inr-title {
   color: #52614d; /* or any red you like */
 }
+
+.zoom-modal{
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+}
+.zoom-modal.is-active{ display: block; }
+
+.zoom-backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.75);
+}
+
+.zoom-stage{
+  position: relative;
+  width: min(1200px, 96vw);
+  height: min(820px, 92vh);
+  margin: 4vh auto;
+  background: #0b1220;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+  overflow: hidden;
+}
+
+.zoom-close{
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.zoom-toolbar{
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.zoom-btn{
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  cursor: pointer;
+}
+
+.zoom-viewport{
+  position: absolute;
+  inset: 56px 16px 34px 16px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: grab;
+}
+.zoom-viewport:active{ cursor: grabbing; }
+
+.zoom-inner{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.zoom-inner img{
+  display: block;
+  max-width: none; /* 允许放大 */
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none; /* 防止拖拽时选中图片 */
+}
+
+.zoom-hint{
+  position: absolute;
+  bottom: 10px;
+  left: 16px;
+  color: rgba(255,255,255,0.75);
+  font-size: 13px;
+}
