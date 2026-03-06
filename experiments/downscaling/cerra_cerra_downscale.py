@@ -29,13 +29,13 @@ parser.add_argument(
     "variable", choices=["t2m", "z500", "t850", "sp", "10u", "all_surf"], help="The variable to predict."
 )  
 parser.add_argument("--ratio", type=int, default=2, help="The downscaling ratio (e.g., 2 for 267->534, 4 for 267->1068, 8 for 133->1068).")
-parser.add_argument("--bs", type=int, default=1)
+parser.add_argument("--bs", type=int, default=1) # downscaling ratio
 parser.add_argument("--summary_depth", type=int, default=1)
-parser.add_argument("--max_epochs", type=int, default=20)
-parser.add_argument("--patience", type=int, default=5)
+parser.add_argument("--max_epochs", type=int, default=20) # max training epochs
+parser.add_argument("--patience", type=int, default=5) 
 parser.add_argument("--gpu", type=int, default=-1)
-parser.add_argument("--checkpoint", default=None)
-parser.add_argument("--lr", default=2e-4, type=float)
+parser.add_argument("--checkpoint", default=None) # specify it for testing
+parser.add_argument("--lr", default=2e-4, type=float) # learning rate
 parser.add_argument("--t_res", default=3, type=int, help="The temporal resolution (in hours) of the dataset, used for diffusion based methods.")
 args = parser.parse_args()
 input_size = (267, 267) if args.ratio == 2 or args.ratio == 4 else (133, 133) # 2x: 267->534, 4x: 267->1068, 8x: 133->1068
