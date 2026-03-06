@@ -1,6 +1,6 @@
 # 🌍 GeoFAR: Geography‑informed Frequency‑Aware Representations for Climate Downscaling
 
-Official implementation for the ICLR26 paper: [GeoFAR: Geography-Informed Frequency-Aware Super-Resolution for Climate Data](https://openreview.net/forum?id=0WHpOekph0&referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3DICLR.cc%2F2026%2FConference%2FAuthors%23your-submissions))
+Official implementation for the ICLR26 paper: [GeoFAR](https://openreview.net/forum?id=0WHpOekph0&referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3DICLR.cc%2F2026%2FConference%2FAuthors%23your-submissions))
 
 ## 📘 Introduction
 
@@ -21,6 +21,7 @@ We introduce **GeoFAR (Geography‑informed Frequency‑Aware Representation)**:
 GeoFAR improves reconstruction fidelity for climate variables and
 significantly enhances the recovery of **high‑frequency details** in climate downscaling tasks.
 
+------------------------------------------------------------------------
 
 ## 🧰 Installation
 
@@ -117,6 +118,8 @@ https://climatelearn.readthedocs.io/en/latest/user-guide/tasks_and_datasets.html
 
 Please refer to the documentation for details on downloading and preprocessing the datasets.
 
+------------------------------------------------------------------------
+
 ## 🧠 Supported Models
 
 To our knowledge, **GeoFAR provides one of the most comprehensive deep-learning toolboxes for climate downscaling**, covering classical interpolation baselines, generic image super-resolution backbones, and climate-specific downscaling models. This repository provides a unified benchmarking framework for **CNN-, GAN-, Transformer-, diffusion-, and neural-operator-based** super-resolution methods.
@@ -144,6 +147,7 @@ To our knowledge, **GeoFAR provides one of the most comprehensive deep-learning 
 - **Climate-specific baselines:** DeepSD, DSFNO, ClimateDiffuse, FFL, FACL, SmCL
 - **GeoFAR variants:** The framework supports multiple enhanced backbones such as **GeoFAR[U-Net]**, **GeoFAR[ViT]**, **GeoFAR[SRGAN]**, and **GeoFAR[DSFNO]**.
 
+------------------------------------------------------------------------
 
 ## 🚀 Usage
 
@@ -167,6 +171,7 @@ Run evaluation by specifying a checkpoint path:
 python experiments/downscaling/cerra_cerra_downscale.py {low-res-path} {high-res-path} vit t2m --ratio=2 --bs=2 --gpu=0 --checkpoint={checkpoint-path}
 ```
 
+------------------------------------------------------------------------
 
 ## 📑 Citation
 
