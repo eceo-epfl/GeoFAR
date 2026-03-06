@@ -106,7 +106,7 @@ https://climatelearn.readthedocs.io/en/latest/user-guide/tasks_and_datasets.html
 
 ---
 
-### 🗺 ERA5 → PRISM Downscaling
+### 🇺🇸 ERA5 → PRISM Downscaling
 
 For **global-to-local downscaling experiments**, we use ERA5 as the low-resolution input and PRISM as the high-resolution target.
 
