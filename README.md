@@ -100,23 +100,19 @@ Additional preprocessing scripts can be found in:
 
 We also evaluate GeoFAR on **global climate downscaling tasks** using ERA5 data.
 
-Instructions for downloading and preprocessing ERA5 datasets can be found in the  
-**climate-learn documentation**:
+Instructions for downloading and preprocessing ERA5 datasets can be found in the **climate-learn documentation**:
 
 https://climatelearn.readthedocs.io/en/latest/user-guide/tasks_and_datasets.html
 
----
 
 ### 🇺🇸 ERA5 → PRISM Downscaling
 
-For **global-to-local downscaling experiments**, we use ERA5 as the low-resolution input and PRISM as the high-resolution target.
+For **global-to-local downscaling**, we use ERA5 as the low-resolution input and PRISM as the high-resolution target.
 
-Dataset preparation follows the same procedure described in the  
-**climate-learn dataset guide**:
+Dataset preparation follows the same procedure described in the  **climate-learn documentation**:
 
 https://climatelearn.readthedocs.io/en/latest/user-guide/tasks_and_datasets.html
 
-Please refer to the documentation for details on downloading and preprocessing the datasets.
 
 ------------------------------------------------------------------------
 
