@@ -28,8 +28,8 @@ parser.add_argument("preset")
 parser.add_argument(
     "variable", choices=["t2m", "z500", "t850", "sp", "10u", "all_surf"], help="The variable to predict."
 )  
-parser.add_argument("--ratio", type=int, default=2, help="The downscaling ratio (e.g., 2 for 267->534, 4 for 267->1068, 8 for 133->1068).")
-parser.add_argument("--bs", type=int, default=1) # downscaling ratio
+parser.add_argument("--ratio", type=int, default=2, help="The downscaling ratio (e.g., 2 for 267->534, 4 for 267->1068, 8 for 133->1068).") # downscaling ratio
+parser.add_argument("--bs", type=int, default=1) # batch size
 parser.add_argument("--summary_depth", type=int, default=1)
 parser.add_argument("--max_epochs", type=int, default=20) # max training epochs
 parser.add_argument("--patience", type=int, default=5) 
@@ -211,9 +211,9 @@ elif args.preset == "edsr":
     )
 elif args.preset == "ffl":
     net = nn.Sequential(
-        Interpolation(args.target_size, "bilinear"),
+        Interpolation(target_size, "bilinear"),
         VisionTransformer(
-            img_size=args.target_size, 
+            img_size=target_size, 
             in_channels=len(in_vars),
             out_channels=len(out_vars),
             history=1,
@@ -472,9 +472,9 @@ elif args.preset == "srgan":
     )
 elif args.preset == "climatediffuse":
     net = nn.Sequential(
-        Interpolation((534, 534), "bilinear"),
+        Interpolation(target_size, "bilinear"),
         EDMPrecond(
-            img_resolution=(534, 534), #
+            img_resolution=target_size, #
             in_channels=2,
             out_channels=len(out_vars),
             label_dim = 2,                # Number of class labels, 0 = unconditional.
@@ -541,7 +541,7 @@ elif args.preset == 'geofar_vit':
         optim_kwargs=optim_kwargs,
         sched="linear-warmup-cosine-annealing",
         sched_kwargs=sched_kwargs,
-        train_loss= "resi_basis_sr",
+        train_loss= "mse",
         test_loss=["lfd","rmse", "pearson", "mean_bias"],
         test_target_transform=["denormalize","denormalize", "denormalize", "denormalize"], 
         elevation=ORO_PATH
@@ -576,7 +576,7 @@ elif args.preset == "geofar_unet":
         optim_kwargs=optim_kwargs,
         sched="linear-warmup-cosine-annealing",
         sched_kwargs=sched_kwargs,
-        train_loss= "resi_basis_sr",
+        train_loss= "mse",
         test_loss=["lfd","rmse", "pearson", "mean_bias"], 
         test_target_transform=["denormalize","denormalize", "denormalize", "denormalize"], 
     )
@@ -615,47 +615,6 @@ elif args.preset == "geocd_srgan":
         test_loss=["lfd","rmse", "pearson", "mean_bias"], 
         test_target_transform=["denormalize","denormalize", "denormalize", "denormalize"], 
         warmup_epochs=4,
-    )
-elif args.preset == "geofar_diffuse":
-    net = nn.Sequential(
-        Interpolation(target_size, "bilinear"),
-        EDMPrecond(
-            img_resolution=target_size, 
-            in_channels=len(in_vars)*2, # concatenate input and noisy image
-            out_channels=len(out_vars),
-            label_dim = 2,                # Number of class labels, 0 = unconditional.
-            use_fp16 = False,            # Execute the underlying model at FP16 precision?
-            sigma_min = 0,                # Minimum supported noise level.
-            sigma_max = float('inf'),     # Maximum supported noise level.
-            sigma_data = 1.0,              # Expected standard deviation of the training data
-            model_type = 'GeoFAR_Diffuse',   # Class name of the underlying model.
-            n_coeff = 64,
-            n_sh_coeff = 64,
-            oro_path = ORO_PATH,
-        ),
-    )
-    optim_kwargs = {"lr": args.lr, "weight_decay": 1e-4, "betas": (0.9, 0.99)}
-    sched_kwargs = {
-        "warmup_epochs": 10,
-        "max_epochs": args.max_epochs,
-        "warmup_start_lr": 1e-6,
-        "eta_min": 1e-6,
-    }
-    model = cl.load_diffusion_module(
-        task='downscaling',
-        data_module=dm,
-        model=net, 
-        optim="adamw",
-        optim_kwargs=optim_kwargs,
-        sched="linear-warmup-cosine-annealing",
-        sched_kwargs=sched_kwargs,
-        scaler = torch.cuda.amp.GradScaler(),
-        train_loss= "edmloss",
-        val_loss=["rmse", "pearson", "mean_bias", "mse"],
-        val_target_transform=["denormalize", "denormalize", "denormalize", None],
-        test_loss=["lfd","rmse", "pearson", "mean_bias"], 
-        test_target_transform=["denormalize","denormalize", "denormalize", "denormalize"], 
-        t_hours = args.t_res,
     )
 elif args.preset == 'geofar_dsfno':
     net = nn.Sequential(
@@ -698,7 +657,7 @@ else:
 # Setup trainer
 current_time = datetime.datetime.now().strftime("%m%d-%H-%M")
 pl.seed_everything(0)
-default_root_dir = f"{args.preset}_downscaling_{args.variable}_cerra{args.ratio}_{current_time}"
+default_root_dir = f"{args.preset}_downscaling_{args.variable}_cerra_{args.ratio}x_{current_time}"
 logger = TensorBoardLogger(save_dir=f"{default_root_dir}/logs")
 early_stopping = "val/mse:aggregate"
 
