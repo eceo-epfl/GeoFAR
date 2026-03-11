@@ -42,13 +42,7 @@ conda activate geofar
 Install dependencies:
 
 ``` bash
-pip install -r requirements.txt
-```
-
-Or install the repository in editable mode:
-
-``` bash
-pip install -e .
+pip install "climate-learn-ds @ git+https://github.com/eceo-epfl/climate_learn_ds.git"
 ```
 
 ------------------------------------------------------------------------
