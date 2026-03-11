@@ -42,7 +42,7 @@ conda activate geofar
 Install dependencies:
 
 ``` bash
-pip install "climate-learn-ds @ git+https://github.com/eceo-epfl/climate_learn_ds.git"
+pip install "climate_learn_ds @ git+https://github.com/eceo-epfl/climate_learn_ds.git"
 ```
 
 ------------------------------------------------------------------------
@@ -62,7 +62,15 @@ We perform downscaling on **2m temperature**:
 
 - 🌡 **2m temperature (`t2m`)**
 
-#### Multi-variable setting
+📦 **Download**: [Hugging Face Dataset](https://huggingface.co/datasets/chaseltsui/cerra-t2m)
+
+Clone with Git:
+
+```bash
+git clone https://huggingface.co/datasets/chaseltsui/cerra-t2m
+```
+
+#### Multi-variable setting [to do]
 
 We jointly downscale multiple surface variables:
 
@@ -88,7 +96,7 @@ The expected directory structure is:
 
 Additional preprocessing scripts can be found in:
 
-    tools/preprocess/
+    tools/
 
 ### 🌐 ERA5 Downscaling
 
