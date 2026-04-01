@@ -2,8 +2,8 @@
 from argparse import ArgumentParser
 
 # Third party
-import climate_learn as cl
-from climate_learn.data.processing.era5_constants import (
+import climate_learn_ds as cl
+from climate_learn_ds.data.processing.era5_constants import (
     PRESSURE_LEVEL_VARS,
     DEFAULT_PRESSURE_LEVELS,
 )
@@ -15,7 +15,7 @@ from pytorch_lightning.callbacks import (
     RichProgressBar,
 )
 from pytorch_lightning.loggers.tensorboard import TensorBoardLogger
-from climate_learn.models.hub import VisionTransformer, Interpolation, Unet, ResNet, EDSR, SwinIR, SRFormer, Constraint_ViT, DeepSD, DSFNO, Generator, Discriminator, EDMPrecond, \
+from climate_learn_ds.models.hub import VisionTransformer, Interpolation, Unet, ResNet, EDSR, SwinIR, SRFormer, Constraint_ViT, DeepSD, DSFNO, Generator, Discriminator, EDMPrecond, \
     GeoFAR, GeoFAR_Unet, GeoFAR_Generator, GeoFAR_DSFNO
 import datetime
 import torch.nn as nn
